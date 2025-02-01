@@ -29,19 +29,32 @@ function showfavo() {
     homeIframe.style.display = 'block';
 }
 function search(event) {
-	var query = document.getElementById('search-query').value;
-	var engine = document.getElementById('search-engine').value;
-	if (query.trim() !== '' && event.key === 'Enter') {
-		var searchURL = '';
-		if (engine === 'google') {
-			searchURL = 'https://www.google.com/search?q=' + encodeURIComponent(query);
-		} else {
-			// 当 engine 不是 'google' 时，默认使用必应搜索引擎
-			searchURL = 'https://www.bing.com/search?q=' + encodeURIComponent(query);
-		}
-		window.open(searchURL);
-	}
+  // 检查是否是 Enter 键（兼容性处理）
+  if (event.keyCode === 13 || event.key === 'Enter') {
+    event.preventDefault(); // 阻止默认行为（如表单提交）
+
+    var query = document.getElementById('search-query').value;
+    var engine = document.getElementById('search-engine').value;
+
+    // 检查搜索内容是否为空
+    if (query.trim() !== '') {
+      var searchURL = '';
+
+      // 根据选择的搜索引擎构建 URL
+      if (engine === 'google') {
+        searchURL = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+      } else {
+        searchURL = 'https://www.bing.com/search?q=' + encodeURIComponent(query);
+      }
+
+      // 在当前页面跳转，而不是新开标签页
+      window.location.href = searchURL;
+    }
+  }
 }
+
+// 绑定事件到输入框
+document.getElementById('search-query').addEventListener('keydown', search);
 function updateIcon() {
 	var engine = document.getElementById('search-engine').value;
 	var selectElement = document.getElementById('search-engine');
