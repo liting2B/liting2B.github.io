@@ -28,33 +28,33 @@ function showfavo() {
     homePage.style.display = 'block';
     homeIframe.style.display = 'block';
 }
+// 搜索函数
 function search(event) {
-  // 检查是否是 Enter 键（兼容性处理）
-  if (event.keyCode === 13 || event.key === 'Enter') {
-    event.preventDefault(); // 阻止默认行为（如表单提交）
+  event.preventDefault(); // 阻止表单的默认提交行为
 
-    var query = document.getElementById('search-query').value;
-    var engine = document.getElementById('search-engine').value;
+  // 获取输入框的值
+  var query = document.getElementById('search-query').value;
+  // 获取搜索引擎的选择值
+  var engine = document.getElementById('search-engine').value;
 
-    // 检查搜索内容是否为空
-    if (query.trim() !== '') {
-      var searchURL = '';
+  // 检查搜索内容是否为空
+  if (query.trim() !== '') {
+    var searchURL = '';
 
-      // 根据选择的搜索引擎构建 URL
-      if (engine === 'google') {
-        searchURL = 'https://www.google.com/search?q=' + encodeURIComponent(query);
-      } else {
-        searchURL = 'https://www.bing.com/search?q=' + encodeURIComponent(query);
-      }
-
-      // 在当前页面跳转，而不是新开标签页
-      window.location.href = searchURL;
+    // 根据选择的搜索引擎构建 URL
+    if (engine === 'google') {
+      searchURL = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+    } else {
+      searchURL = 'https://www.bing.com/search?q=' + encodeURIComponent(query);
     }
+
+    // 跳转到搜索结果页
+    window.location.href = searchURL;
   }
 }
 
-// 绑定事件到输入框
-document.getElementById('search-query').addEventListener('keydown', search);
+// 监听表单的 submit 事件
+document.getElementById('search-form').addEventListener('submit', search);
 function updateIcon() {
 	var engine = document.getElementById('search-engine').value;
 	var selectElement = document.getElementById('search-engine');
