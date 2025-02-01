@@ -54,7 +54,7 @@ function search(event) {
 }
 
 // 监听表单的 submit 事件
-document.getElementById('search-form').addEventListener('submit', search);
+document.getElementById('search-container').addEventListener('submit', search);
 function updateIcon() {
 	var engine = document.getElementById('search-engine').value;
 	var selectElement = document.getElementById('search-engine');
