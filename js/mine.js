@@ -28,41 +28,37 @@ function showfavo() {
     homePage.style.display = 'block';
     homeIframe.style.display = 'block';
 }
-// 搜索函数
+// 默认搜索引擎
+var defaultEngine = 'bing';
+
+// 监听输入框的按键事件
 function search(event) {
-  event.preventDefault(); // 阻止表单的默认提交行为
+  if (event.key === 'Enter' || event.keyCode === 13) {
+    event.preventDefault(); // 阻止默认行为
+    performSearch();
+  }
+}
 
-  // 获取输入框的值
-  var query = document.getElementById('search-query').value;
-  // 获取搜索引擎的选择值
+// 更新搜索引擎图标（如果需要）
+function updateIcon() {
   var engine = document.getElementById('search-engine').value;
+  defaultEngine = engine; // 更新默认搜索引擎
+  console.log('搜索引擎已切换为:', engine);
+}
 
-  // 检查搜索内容是否为空
+// 执行搜索
+function performSearch() {
+  var query = document.getElementById('search-query').value;
+
   if (query.trim() !== '') {
     var searchURL = '';
-
-    // 根据选择的搜索引擎构建 URL
-    if (engine === 'google') {
+    if (defaultEngine === 'google') {
       searchURL = 'https://www.google.com/search?q=' + encodeURIComponent(query);
     } else {
       searchURL = 'https://www.bing.com/search?q=' + encodeURIComponent(query);
     }
-
-    // 跳转到搜索结果页
-    window.location.href = searchURL;
+    window.location.href = searchURL; // 跳转到搜索结果页
   }
-}
-
-// 监听表单的 submit 事件
-document.getElementById('search-container').addEventListener('submit', search);
-function updateIcon() {
-	var engine = document.getElementById('search-engine').value;
-	var selectElement = document.getElementById('search-engine');
-	if (engine === 'google') {
-		selectElement.style.backgroundImage = "url('https://www.google.com/favicon.ico')";
-	} else if (engine === 'bing') {
-	selectElement.style.backgroundImage = "url('https://www.bing.com/favicon.ico')";
-	}
 }
 // 热搜榜
 function showhot() {
